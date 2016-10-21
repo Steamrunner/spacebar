@@ -228,7 +228,7 @@ function BarcodeToConsole() {
 function GitPush(){
 	$.ajax({
 		cache: false,
-		dataType: 'json',type: 'GET',timeout: 20000,url: 'includes/gitpush.php'
+		dataType: 'json',type: 'GET',timeout: 20000,url: '../spacebar-data/gitpush.php'
 	});
 }
 	
