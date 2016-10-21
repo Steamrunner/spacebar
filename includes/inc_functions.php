@@ -10,10 +10,10 @@ function json_log($log){
   $sql = "INSERT INTO sb_logs (log_time,log_type,log_json,log_message) VALUES ('".$log['timestamp']."','".$log['type']."','".json_encode($log)."','".$log['human']."')";
   $result = $conn->query($sql);
   
-  $data = json_encode($log);
-  $file = fopen("../log/data.json", "a");
+  /*$data = json_encode($log);
+  $file = fopen("../log/data_copy.json", "a");
   fwrite($file, ",\n".$data);
-  fclose($file);
+  fclose($file);*/
 }
 
 function array_sum_values(array $input, $key) {
