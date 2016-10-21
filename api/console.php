@@ -19,7 +19,7 @@ error_reporting(E_ALL);
 
 // initialize
 include_once '../includes/inc_connect.php';
-include_once '../includes/inc_functions.php';
+include_once 'functions.php';
 $output = array();
 $data = array();
 $data['timestamp'] = time();

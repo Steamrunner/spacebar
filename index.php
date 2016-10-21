@@ -178,7 +178,7 @@
 
 // define the html section that we are viewing
 ViewSection('page_start');
-
+GitPull();
 // always keep the input form in focus (so barcode scanners can be used)
 function CronJob(){
 	if (!$("#input").is(':focus')){
@@ -202,7 +202,7 @@ $(document).keydown(function (e) {
 function GetLogscreen($amount = 7) {
 	$.ajax({
 		cache: false,data: {amount: $amount},
-		dataType: 'json',type: 'GET',timeout: 20000,url: 'api/log.php'
+		dataType: 'json',type: 'GET',timeout: 20000,url: 'api/log_read.php'
 	})
 	.done(function(data) {
 		var loglist = '';
@@ -224,6 +224,21 @@ function BarcodeToConsole() {
 	});
 	ConsoleAction('read');
 }
+	
+function GitPush(){
+	$.ajax({
+		cache: false,
+		dataType: 'json',type: 'GET',timeout: 20000,url: 'includes/gitpush.php'
+	});
+}
+	
+function GitPull(){
+	$.ajax({
+		cache: false,
+		dataType: 'json',type: 'GET',timeout: 20000,url: 'includes/gitpull.php'
+	});
+}
+	
 	
 function ViewSection($screen = 'page_start'){
 	$(".page_start").hide();
@@ -358,6 +373,7 @@ function abort($type = ''){
 	$(function(){
 			$('#input_deposit').val('');
 	});
+	GitPush();
 }
 	
 </script>	
