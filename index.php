@@ -285,7 +285,7 @@ function GetProductList($page = 0,$quantity = 19,$div = "productlist",$action = 
 				}
 			}
 		});
-		productlist += '<a class="btn btn-lg btn-filled next-p btn-green" onClick="GetProductList('+productlist_next+','+$quantity+','+$div+','+$action+')">&#8658;</a>';
+		productlist += '<a class="btn btn-lg btn-filled next-p btn-green" onClick="GetProductList('+productlist_next+','+$quantity+',\''+$div+'\',\''+$action+'\')">&#8658;</a>';
 		$("."+$div).html(productlist);
 	  $("."+$div+"-title").html("Products "+($page+1)+"/"+productlist_total);
 	});
