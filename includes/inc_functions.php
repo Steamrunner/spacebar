@@ -11,7 +11,7 @@ function json_log($log){
   $result = $conn->query($sql);
   
   $data = json_encode($log);
-  $file = fopen("../log/data_backup.json", "a");
+  $file = fopen("../log/data.json", "a");
   fwrite($file, ",\n".$data);
   fclose($file);
 }
