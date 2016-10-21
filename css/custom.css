@@ -1,0 +1,165 @@
+body{
+  font-size:12px;
+  font-family:Arial, Helvetica, Verdana, Arial, sans-serif;
+  cursor:crosshair;
+        user-select: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -o-user-select: none;
+  background:#292929;
+  
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+h4.mb16{
+  color:#e5692c;
+}
+
+.main-container{
+  max-width:1000px;
+  margin:auto auto;
+}
+
+section{
+  padding:10px 0px;
+  
+}
+
+.container{
+  margin:0px;
+  width:100%;
+}
+
+.logscreen{
+  background-color:#313131;
+  font-family: monospace;
+  margin-bottom:11px;
+  height:140px;
+  white-space: nowrap;
+  overflow:hidden;
+  overflow:auto;
+}
+
+.logscreen-content{
+  padding:10px;
+  line-height:16px;
+  overflow:hidden;
+  white-space: nowrap;
+}
+
+
+.console input{
+  background-color:#313131;
+  font-family: monospace;
+  font-size:12px;
+  height:15px;
+  line-height:12px;
+  border:0px;
+  padding:0px;
+  margin:0px;
+  overflow:hidden;
+  width:auto; 
+}
+.console input:focus{
+    outline: none;
+}
+
+input{
+  background-color:#313131;
+  font-family: monospace;
+  font-size:24px;
+  height:60px;
+  line-height:60px;
+  padding:10px;
+  margin:0px;
+  border:0px;
+  overflow:hidden;
+  width:auto; 
+}
+
+.part-products, .part-accounts{
+  min-height:400px;
+  overflow:hidden;
+}
+.part-tools{
+  overflow:hidden;
+  
+}
+
+.console {
+  font-family: monospace;
+  background-color:#313131;
+  text-decoration: none;
+  width:auto;
+  height:260px;
+  font-size:20px;
+  text-transform:uppercase;
+  
+}
+
+.console-content{
+  padding:10px;
+}
+
+/*!----------  BUTTONS ----------*/
+.btn{
+  cursor:crosshair;
+  padding:0px 10px;
+  margin-bottom:8px;
+  margin-right:8px;
+}
+.btn-lg {
+  height: 60px;
+  line-height: 56px;
+  max-width:130px;
+  min-width:130px;
+  overflow:hidden;
+}
+.btn-sm {
+  height: 65px;
+  width: 65px;
+  font-size:18px;
+  font-weight:bold;
+  line-height: 55px;
+  overflow:hidden;
+  margin-right:5px;
+}
+
+.btn:hover{
+  cursor:crosshair;
+  border-color:#fff;
+}
+.btn-blue{
+  background-color:#30548a;
+  border-color:#30548a;
+  min-width:120px;
+}
+.btn-blue:hover{
+  background-color:#30548a;
+}
+
+.btn-red{
+  background-color:#A52A2A;
+  border-color:#A52A2A;
+}
+.btn-red:hover{
+  background-color:#A52A2A;
+}
+.btn-green{
+  background-color:#55AE3A;
+  border-color:#55AE3A;
+}
+.btn-green:hover{
+  background-color:#55AE3A;
+}
+
+.btn-grey{
+  background-color:#444;
+  border-color:#444;
+}
+.btn-grey:hover{
+  background-color:#444;
+}
+
