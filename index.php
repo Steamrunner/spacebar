@@ -119,7 +119,7 @@
 						<div class="col-sm-12">
 							<a class="btn btn-lg btn-filled btn-grey" onClick="ViewSection('page_config_products')">PRODUCTS</a>
 							<a class="btn btn-lg btn-filled btn-grey" onClick="ViewSection('page_add_account')">ACCOUNTS</a>
-							<a class="btn btn-lg btn-filled btn-grey" onClick="ReLoad()">reload</a>
+							<a class="btn btn-lg btn-filled btn-grey" onClick="Reload()">reload</a>
 							<a class="btn btn-lg btn-filled btn-red" onClick="abort()">abort</a>
 						</div>
 				</div>
@@ -238,8 +238,8 @@ function GitPull(){
 	});
 }	
 	
-function ReLoad(){
-	VieuwSection('none');
+function Reload(){
+	ViewSection('none');
 	GitPull();
 	setTimeout(function(){
     location.reload();
