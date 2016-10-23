@@ -61,17 +61,6 @@
 			
 			
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 		<section class="bg-dark page_deposit">
 					<div class="container">
 						<div class="row">
@@ -183,8 +172,6 @@ function CronJob(){
 	if (!$("#input").is(':focus')){
 	document.getElementById("input").focus();
 	}
-	ConsoleAction('read');
-	GetLogscreen();
 }
 setInterval(CronJob,2000);
 	
@@ -198,21 +185,6 @@ $(document).keydown(function (e) {
     }
 });
 
-function GetLogscreen($amount = 7) {
-	$.ajax({
-		cache: false,data: {amount: $amount},
-		dataType: 'json',type: 'GET',timeout: 20000,url: 'api/log_read.php'
-	})
-	.done(function(data) {
-		var loglist = '';
-		$.each(data, function(index, e) {
-			loglist = e + '<br>' + loglist;
-			
-		});
-		$( ".logscreen-content" ).html(loglist);
-	});
-}
-
 	
 function BarcodeToConsole() {
 	$input = $('#input').val();
@@ -221,7 +193,7 @@ function BarcodeToConsole() {
 		cache: false,data: {type:'add-barcode',barcode: $input},
 		dataType: 'json',type: 'GET',timeout: 20000,url: 'api/console.php'
 	});
-	ConsoleAction('read');
+	ConsoleRead();
 }
 	
 function GitPush(){
@@ -243,7 +215,7 @@ function Reload(){
 	GitPull();
 	setTimeout(function(){
     location.reload();
-}, 4000);
+}, 7000);
 }
 	
 function ViewSection($screen = 'page_start'){
@@ -258,8 +230,7 @@ function ViewSection($screen = 'page_start'){
 	$("."+$screen).show();
 	GetProductList();	
 	GetAccountList();
-	ConsoleAction('read');
-	GetLogscreen();
+	ConsoleRead();
 	
 	if($screen == 'page_deposit'){
   GetAccountList(undefined,undefined,'deposit');
@@ -354,6 +325,20 @@ function ConsoleAction($type = 0,$product = 0,$account = 0,$amount = 0){
 		dataType: 'json',type: 'GET',timeout: 20000,url: 'api/console.php'
 	})
 	.done(function(data) {
+	ConsoleRead();
+	if($type == 'deposit' || $type == 'buy'){
+	GitPush();
+	}
+	});
+}
+	
+function ConsoleRead(){
+	$.ajax({
+		cache: false,data: {type: 'read'},
+		dataType: 'json',type: 'GET',timeout: 20000,url: 'api/console.php'
+	})
+	.done(function(data) {
+		alert('test');
 		var consolelist = '';
 		$.each(data, function(index, e) {
 			if(index == 'price'){
@@ -363,12 +348,19 @@ function ConsoleAction($type = 0,$product = 0,$account = 0,$amount = 0){
 			}
 		})
 		$(".console-list").html(consolelist);
-		GetLogscreen();
 	});
-	if($type == 'deposit' || $type == 'buy'){
-	GitPush();
-	}
-	
+	$.ajax({
+		cache: false,data: {amount: 7},
+		dataType: 'json',type: 'GET',timeout: 20000,url: 'api/log_read.php'
+	})
+	.done(function(data) {
+		var loglist = '';
+		$.each(data, function(index, e) {
+			loglist = e + '<br>' + loglist;
+			
+		});
+		$( ".logscreen-content" ).html(loglist);
+	});
 }
 	
 function abort($type = ''){

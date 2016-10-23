@@ -8,6 +8,7 @@ type =  add = add product to cart
         add-barcode = add product to cart from barcode
         buy = account-id buys all products in cart
         deposit = add a certain amount of money to an account
+        check = check account money
         empty = empty cart
 
 */
@@ -51,9 +52,14 @@ if($_GET['type'] == 'add-barcode' && isset($_GET['barcode'])){
   $sql = "SELECT barcode_product FROM sb_products_barcodes WHERE barcode_code = ".$barcode;
   $result = $conn->query($sql);
   $row = $result->fetch_assoc();
+  $count = $cart->num_rows;
+  if($count > 0){
   $sql = "INSERT INTO sb_console (console_product) VALUES ('".$row['barcode_product']."')";
   $result = $conn->query($sql);
+  }
 }
+
+
 
 // finally, the buy code, handle with care!
 if($_GET['type'] == 'buy' && is_numeric($_GET['account'])){
@@ -69,6 +75,11 @@ if($_GET['type'] == 'buy' && is_numeric($_GET['account'])){
       $sql = "SELECT console_product FROM sb_console";
       $cart = $conn->query($sql);
       $count = $cart->num_rows;
+  
+      if($count == 0){
+        $_GET['type'] = 'check';
+        break;
+      }
   
       // go trough every single product in the console
       foreach ($cart as $k => $v) {
@@ -144,6 +155,18 @@ if($_GET['type'] == 'buy' && is_numeric($_GET['account'])){
 
       // aaaaaaaaand log the data
       json_log($data);
+}
+
+if($_GET['type'] == 'check'){
+  $sql = "SELECT account_id,account_name,account_money FROM sb_accounts WHERE account_id = ".$_GET['account']." LIMIT 1";
+      $result = $conn->query($sql);
+      $account = $result->fetch_assoc();
+  $data['type'] = 'check';
+  $data['account'] = $account;
+  $data['human'] = $data['account']['account_name']." has EUR ".makedecimal($data['account']['account_money'])." left";
+
+  // aaaaaaaaand log the data
+  json_log($data);
 }
 
 if($_GET['type'] == 'deposit' && is_numeric($_GET['account']) && is_numeric($_GET['amount'])){
