@@ -3,7 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title>SpaceBar</title>
+        <title>Spacebar</title>
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
         <link href="css/theme-orange.css" rel="stylesheet" type="text/css" media="all" />
         <link href="css/custom.css" rel="stylesheet" type="text/css" media="all" />
@@ -25,7 +25,7 @@
 		                    </div>
 		                </div>
 		                <div class="col-sm-5 part-accounts">
-		                    <h4 class="mb16 uppercase accounttitle">ACCOUNTS</h4>
+		                    <h4 class="mb16 uppercase accountlist-title">ACCOUNTS</h4>
 		                    <div class="accountlist">Loading..
 		                    </div>
 		                </div>
@@ -83,8 +83,8 @@
 									<input id="input_deposit"><a class="btn btn-lg btn-filled next-p btn-red" onClick="abort()">Abort</a><br><br>
 						</div>
 						<div class="col-sm-6" style="margin-bottom:30px;">
-							<h4 class="mb16 uppercase">DEPOSIT :: TO ACCOUNT?</h4>
-							<div class="accountlist">Loading..</div>
+							<h4 class="mb16 uppercase deposit-accountlist-title"></h4>
+							<div class="deposit-accountlist">Loading..</div>
 						</div>
 						</div>      
 					</div>
@@ -167,7 +167,9 @@
 
 // define the html section that we are viewing
 ViewSection('page_start');
-// always keep the input form in focus (so barcode scanners can be used)
+	
+/*	
+// always keep the input form in focus (in case barcode scanners can be used)
 function CronJob(){
 	if (!$("#input").is(':focus')){
 	document.getElementById("input").focus();
@@ -183,7 +185,7 @@ $(document).keydown(function (e) {
 					BarcodeToConsole();
 				});
     }
-});
+});*/
 
 	
 function BarcodeToConsole() {
@@ -218,22 +220,30 @@ function Reload(){
 }, 7000);
 }
 	
-function ViewSection($screen = 'page_start'){
-	$(".page_start").hide();
-	$(".page_deposit").hide();
-	$(".page_deposit2").hide();
-	$(".page_noob").hide();
-	$(".page_config_products_add").hide();
-	$(".page_config_products").hide();
-	$(".page_config").hide();
-	$(".page_add_account").hide();
-	$("."+$screen).show();
-	GetProductList();	
-	GetAccountList();
-	ConsoleRead();
 	
+function abort($type = ''){
+	if($type == 'empty'){
+		ConsoleAction('empty');
+	}
+	ViewSection('page_start');
+	$(function(){
+			$('#input').val('');
+	});
+	$(function(){
+			$('#input_deposit').val('');
+	});
+}
+	
+function ViewSection($screen = 'page_start'){
+	$("section").hide();
+	$("."+$screen).show();
+	if($screen == 'page_start'){
+	GetProductList(undefined,undefined,'productlist','add');	
+	GetAccountList(undefined,undefined,'accountlist','buy');
+	ConsoleRead();
+	}
 	if($screen == 'page_deposit'){
-  GetAccountList(undefined,undefined,'deposit');
+  GetAccountList(undefined,undefined,'deposit-accountlist','deposit');
 	}
 	if($screen == 'page_config_products'){
   GetProductList(undefined,40,'config-products','edit');
@@ -249,71 +259,8 @@ function AddToInput($add = '',$input = ''){
 	document.getElementById($input).focus();
 }
 	
-
-
-function GetProductList($page = 0,$quantity = 19,$div = "productlist",$action = "addtoconsole") {
-	var productlist_next = 0;
-	var productlist_total = 0;
-	$.ajax({
-		cache: false,data: {page: $page,quantity: $quantity},
-		dataType: 'json',type: 'GET',timeout: 20000,url: 'api/products.php'
-	})
-	.done(function(data) {
-		var productlist = '';
-		$.each(data, function(index, e) {
-			if(index=='next'){
-				productlist_next = e;
-			}else if(index=='total'){
-				productlist_total = e;
-			}else{
-				productlist += '<a class="btn btn-lg btn-filled';
-				if(e.product_type==3){
-				productlist += ' btn-green';
-				}else if(e.product_type==2){ 
-				productlist += ' btn-red';
-				}
-				if($action == "addtoconsole"){
-				productlist += '" onClick="ConsoleAction(\'add\','+e.product_id+')">'+e.product_name+'</a>';
-				}
-			}
-		});
-		productlist += '<a class="btn btn-lg btn-filled next-p btn-green" onClick="GetProductList('+productlist_next+','+$quantity+',\''+$div+'\',\''+$action+'\')">&#8658;</a>';
-		$("."+$div).html(productlist);
-	  $("."+$div+"-title").html("Products "+($page+1)+"/"+productlist_total);
-	});
-}
-
-function GetAccountList($page = 0,$quantity = 14, $style = 'normal') {
-	var accountlist_next = 0;
-	var accountlist_total = 0 ;
-	$.ajax({
-		cache: false,data: {page: $page,quantity: $quantity},
-		dataType: 'json',type: 'GET',timeout: 20000,url: 'api/accounts.php'
-	})
-	.done(function(data) {
-		var accountlist = '';
-		$.each(data, function(index, e) {
-			if(index=='next'){
-			accountlist_next = e;
-			}else if(index=='total'){
-			accountlist_total = e;
-			}else{
-			accountlist += '<a class="btn btn-lg btn-filled btn-blue" onClick="ConsoleAction(';
-				if($style == 'deposit'){
-					accountlist += "'deposit'";
-				}else{
-					accountlist += "'buy'";
-				}
-			accountlist += ',undefined,'+e.account_id+')">'+e.account_name+'</a>';
-			}
-		});
-		accountlist += '<a class="btn btn-lg btn-filled btn-blue" onClick="GetAccountList('+accountlist_next+','+$quantity+',\''+$style+'\')">&#8658;</a>';
-		$(".accountlist").html(accountlist);
-		$(".accounttitle").html("Accounts "+($page+1)+"/"+accountlist_total);
-	});
-}
 	
-function ConsoleAction($type = 0,$product = 0,$account = 0,$amount = 0){
+function ConsoleAction($type = '',$product = 0,$account = 0,$amount = 0){
 	if($type == 'deposit'){
 		deposit_amount = $('#input_deposit').val();
 	  $('#input_deposit').val('');
@@ -328,10 +275,64 @@ function ConsoleAction($type = 0,$product = 0,$account = 0,$amount = 0){
     ConsoleRead();
 	})
 	.done(function(data) {
-	ConsoleRead();
-	if($type == 'deposit' || $type == 'buy'){
-	GitPush();
-	}
+		ConsoleRead();
+		if($type == 'deposit' || $type == 'buy'){
+		GitPush();
+		}
+	});
+}
+
+
+function GetProductList($page = 0,$quantity = 19,$div = "productlist",$action = "add") {
+	$.ajax({
+		cache: false,data: {page: $page,quantity: $quantity},
+		dataType: 'json',type: 'GET',timeout: 20000,url: 'api/products.php'
+	})
+	.done(function(data) {
+		var html = '';
+		$.each(data, function(index, e) {
+			if(index=='next'){
+				page_next = e;
+			}else if(index=='total'){
+				page_total = e;
+			}else{
+				html += '<a class="btn btn-lg btn-filled';
+				if(e.product_type==3){
+				html += ' btn-green';
+				}else if(e.product_type==2){ 
+				html += ' btn-red';
+				}
+				if($action == "add"){
+				html += '" onClick="ConsoleAction(\'add\','+e.product_id+')">'+e.product_name+'</a>';
+				}
+			}
+		});
+		html += '<a class="btn btn-lg btn-filled next-p btn-green" onClick="GetProductList('+page_next+','+$quantity+',\''+$div+'\',\''+$action+'\')">&#8658;</a>';
+		$("."+$div).html(html);
+	  $("."+$div+"-title").html("Products "+($page+1)+"/"+page_total);
+	});
+}
+
+function GetAccountList($page = 0,$quantity = 14, $div = "accountlist",$action = 'buy') {
+	$.ajax({
+		cache: false,data: {page: $page,quantity: $quantity},dataType: 'json',type: 'GET',timeout: 20000,url: 'api/accounts.php'
+	})
+	.done(function(data) {
+		var html = '';
+		
+		$.each(data, function(index, e) {
+			if(index=='next'){
+				page_next = e;
+			}else if(index=='total'){
+				page_total = e;
+			}else{
+				html += '<a class="btn btn-lg btn-filled btn-blue" onClick="ConsoleAction(\''+$action+'\',undefined,'+e.account_id+')">'+e.account_name+'</a>';
+			}
+		});
+		
+		html += '<a class="btn btn-lg btn-filled btn-blue" onClick="GetAccountList('+page_next+','+$quantity+',\''+$div+'\',\''+$action+'\')">&#8658;</a>';
+		$("."+$div).html(html);
+		$("."+$div+"-title").html("Accounts "+($page+1)+"/"+page_total);
 	});
 }
 	
@@ -364,19 +365,7 @@ function ConsoleRead(){
 		$( ".logscreen-content" ).html(loglist);
 	});
 }
-	
-function abort($type = ''){
-	if($type == 'empty'){
-		ConsoleAction('empty');
-	}
-	ViewSection('page_start');
-	$(function(){
-			$('#input').val('');
-	});
-	$(function(){
-			$('#input_deposit').val('');
-	});
-}
+
 	
 </script>	
 			

@@ -77,9 +77,15 @@ if($_GET['type'] == 'buy' && is_numeric($_GET['account'])){
       $count = $cart->num_rows;
   
       if($count == 0){
-        $_GET['type'] = 'check';
-        break;
-      }
+        $sql = "SELECT account_id,account_name,account_money FROM sb_accounts WHERE account_id = ".$_GET['account']." LIMIT 1";
+        $result = $conn->query($sql);
+        $account = $result->fetch_assoc();
+        $data['type'] = 'check';
+        $data['account'] = $account;
+        $data['human'] = $data['account']['account_name']." has EUR ".makedecimal($data['account']['account_money'])." left";
+        // aaaaaaaaand log the data
+        json_log($data);
+      }else{
   
       // go trough every single product in the console
       foreach ($cart as $k => $v) {
@@ -155,18 +161,12 @@ if($_GET['type'] == 'buy' && is_numeric($_GET['account'])){
 
       // aaaaaaaaand log the data
       json_log($data);
+        
+      }
 }
 
 if($_GET['type'] == 'check'){
-  $sql = "SELECT account_id,account_name,account_money FROM sb_accounts WHERE account_id = ".$_GET['account']." LIMIT 1";
-      $result = $conn->query($sql);
-      $account = $result->fetch_assoc();
-  $data['type'] = 'check';
-  $data['account'] = $account;
-  $data['human'] = $data['account']['account_name']." has EUR ".makedecimal($data['account']['account_money'])." left";
 
-  // aaaaaaaaand log the data
-  json_log($data);
 }
 
 if($_GET['type'] == 'deposit' && is_numeric($_GET['account']) && is_numeric($_GET['amount'])){
@@ -197,7 +197,7 @@ if($_GET['type'] == 'deposit' && is_numeric($_GET['account']) && is_numeric($_GE
 }
 
 
-if($_GET['type'] == 'read' || $_GET['type'] == 'buy' || $_GET['type'] == 'empty' || $_GET['type'] == 'add'){
+if($_GET['type'] == 'read'){
   
   //dirty code to read the console content, needs cleaning up
   $sql = "SELECT *, COUNT(console_product) as 'amount' FROM sb_console GROUP BY console_product ORDER BY console_id DESC";
