@@ -228,6 +228,9 @@ function GitPush(){
 	$.ajax({
 		cache: false,
 		dataType: 'json',type: 'GET',timeout: 20000,url: '../spacebar-data/gitpush.php'
+	})
+	.done(function(data){
+	alert(data);
 	});
 }
 	
@@ -236,8 +239,7 @@ function GitPull(){
 		cache: false,
 		dataType: 'json',type: 'GET',timeout: 20000,url: 'includes/gitpull.php'
 	});
-}
-	
+}	
 	
 function ViewSection($screen = 'page_start'){
 	$(".page_start").hide();
@@ -358,6 +360,7 @@ function ConsoleAction($type = 0,$product = 0,$account = 0,$amount = 0){
 		$(".console-list").html(consolelist);
 		GetLogscreen();
 	});
+	GitPush();
 	
 }
 	
