@@ -47,7 +47,7 @@ if($_GET['type'] == 'add' && is_numeric($_GET['product'])){
 // add a product to the console based on the barcode
 if($_GET['type'] == 'add-barcode' && isset($_GET['barcode'])){
   $barcode = str_replace('%0D.1','',$_GET['barcode']);
-  $barcode = str_replace('%0D','',$_GET['barcode']);
+  $barcode = str_replace('%0D','',$barcode);
   $sql = "SELECT barcode_product FROM sb_products_barcodes WHERE barcode_code = ".$barcode;
   $result = $conn->query($sql);
   $row = $result->fetch_assoc();
