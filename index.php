@@ -3,7 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title>Spacebar</title>
+        <title>SpaceBar</title>
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
         <link href="css/theme-orange.css" rel="stylesheet" type="text/css" media="all" />
         <link href="css/custom.css" rel="stylesheet" type="text/css" media="all" />
@@ -228,9 +228,6 @@ function GitPush(){
 	$.ajax({
 		cache: false,
 		dataType: 'json',type: 'GET',timeout: 20000,url: '../spacebar-data/gitpush.php'
-	})
-	.done(function(data){
-	alert(data);
 	});
 }
 	
@@ -360,7 +357,9 @@ function ConsoleAction($type = 0,$product = 0,$account = 0,$amount = 0){
 		$(".console-list").html(consolelist);
 		GetLogscreen();
 	});
+	if($type == 'deposit' || $type == 'buy'){
 	GitPush();
+	}
 	
 }
 	
@@ -375,7 +374,6 @@ function abort($type = ''){
 	$(function(){
 			$('#input_deposit').val('');
 	});
-	GitPush();
 }
 	
 </script>	
