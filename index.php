@@ -119,6 +119,7 @@
 						<div class="col-sm-12">
 							<a class="btn btn-lg btn-filled btn-grey" onClick="ViewSection('page_config_products')">PRODUCTS</a>
 							<a class="btn btn-lg btn-filled btn-grey" onClick="ViewSection('page_add_account')">ACCOUNTS</a>
+							<a class="btn btn-lg btn-filled btn-grey" onClick="ReLoad()">reload</a>
 							<a class="btn btn-lg btn-filled btn-red" onClick="abort()">abort</a>
 						</div>
 				</div>
@@ -177,7 +178,6 @@
 
 // define the html section that we are viewing
 ViewSection('page_start');
-GitPull();
 // always keep the input form in focus (so barcode scanners can be used)
 function CronJob(){
 	if (!$("#input").is(':focus')){
@@ -237,6 +237,14 @@ function GitPull(){
 		dataType: 'json',type: 'GET',timeout: 20000,url: 'includes/gitpull.php'
 	});
 }	
+	
+function ReLoad(){
+	VieuwSection('none');
+	GitPull();
+	setTimeout(function(){
+    location.reload();
+}, 4000);
+}
 	
 function ViewSection($screen = 'page_start'){
 	$(".page_start").hide();
