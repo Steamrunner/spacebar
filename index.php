@@ -324,6 +324,9 @@ function ConsoleAction($type = 0,$product = 0,$account = 0,$amount = 0){
 		cache: false,data: {type: $type,product: $product,account: $account,amount: $amount},
 		dataType: 'json',type: 'GET',timeout: 20000,url: 'api/console.php'
 	})
+  .fail(function () {
+    ConsoleRead();
+	})
 	.done(function(data) {
 	ConsoleRead();
 	if($type == 'deposit' || $type == 'buy'){
@@ -338,7 +341,6 @@ function ConsoleRead(){
 		dataType: 'json',type: 'GET',timeout: 20000,url: 'api/console.php'
 	})
 	.done(function(data) {
-		alert('test');
 		var consolelist = '';
 		$.each(data, function(index, e) {
 			if(index == 'price'){
