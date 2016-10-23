@@ -11,6 +11,6 @@ function json_log($log){
   
   $data = json_encode($log);
   $file = fopen("../../spacebar-data/data.json", "a");
-  fwrite($file, ",\n".$data);
+  fwrite($file, "\n".$data.",");
   fclose($file);
 }
