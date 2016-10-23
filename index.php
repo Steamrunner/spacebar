@@ -208,7 +208,7 @@ function GitPush(){
 function GitPull(){
 	$.ajax({
 		cache: false,
-		dataType: 'json',type: 'GET',timeout: 20000,url: 'includes/gitpull.php'
+		dataType: 'json',type: 'GET',timeout: 20000,url: 'gitpull.php'
 	});
 }	
 	
@@ -268,7 +268,7 @@ function ConsoleAction($type = '',$product = 0,$account = 0,$amount = 0){
 		ViewSection('page_start');
 	}
 	$.ajax({
-		cache: false,data: {type: $type,product: $product,account: $account,amount: $amount},
+		cache: false,data: {type: $type,product: $product,account: $account,amount: $amount,session:1},
 		dataType: 'json',type: 'GET',timeout: 20000,url: 'api/console.php'
 	})
   .fail(function () {
@@ -338,7 +338,7 @@ function GetAccountList($page = 0,$quantity = 14, $div = "accountlist",$action =
 	
 function ConsoleRead(){
 	$.ajax({
-		cache: false,data: {type: 'read'},
+		cache: false,data: {type: 'read',session:1},
 		dataType: 'json',type: 'GET',timeout: 20000,url: 'api/console.php'
 	})
 	.done(function(data) {

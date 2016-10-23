@@ -1,5 +1,5 @@
 <?php
-include_once '../includes/inc_connect.php';
+include_once 'functions.php';
 
 // initialize and check for parameters
 $array = array();

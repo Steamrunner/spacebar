@@ -1,5 +1,6 @@
 <?php
-include_once '../includes/inc_connect.php';
+
+include_once 'functions.php';
 
 $page = $_GET['page'];
 $quantity = $_GET['quantity'];

@@ -19,7 +19,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // initialize
-include_once '../includes/inc_connect.php';
 include_once 'functions.php';
 
 $output = array();
@@ -28,7 +27,7 @@ $data['timestamp'] = time();
 $data['type'] = 'undefined';
 
 // no type, no party
-if(!isset($_GET['type'])){
+if(!isset($_GET['type']) || !is_numeric($_GET['session'])){
   die("undefined");
 }
 
