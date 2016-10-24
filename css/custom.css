@@ -70,13 +70,13 @@ input{
   background-color:#313131;
   font-family: monospace;
   font-size:24px;
-  height:60px;
+  height:40px;
   line-height:60px;
   padding:10px;
-  margin:0px;
+  margin:0px 20px 0px 0px;
   border:0px;
   overflow:hidden;
-  width:auto; 
+  width:280px; 
 }
 
 .part-products, .part-accounts{
@@ -118,13 +118,14 @@ input{
   overflow:hidden;
 }
 .btn-sm {
-  height: 65px;
-  width: 65px;
+  height: 60px;
+  width: 60px;
+  line-height: 56px;
   font-size:18px;
   font-weight:bold;
-  line-height: 55px;
+  max-width:60px;
+  min-width:60px;
   overflow:hidden;
-  margin-right:5px;
 }
 
 .btn:hover{

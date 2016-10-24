@@ -38,7 +38,7 @@
 										</div>
 										<h4 class="mb16 uppercase">Tools</h4>
 										<div class="tools">
-										<a class="btn btn-lg btn-filled" onClick="abort('empty')">abort</a><a class="btn btn-lg btn-filled" onClick="ViewSection('page_deposit')">deposit</a><a class="btn btn-lg btn-filled btn-grey" onClick="ViewSection('page_config')">config</a><a class="btn btn-lg btn-filled btn-grey">noob mode</a>	
+										<a class="btn btn-lg btn-filled" onClick="Abort('empty')">Abort</a><a class="btn btn-lg btn-filled" onClick="ViewSection('page_deposit')">deposit</a><a class="btn btn-lg btn-filled btn-grey" onClick="ViewSection('config')">config</a><a class="btn btn-lg btn-filled btn-grey">noob mode</a>	
 										</div>
 										
 									</div>
@@ -47,7 +47,7 @@
 										<div class="console">
 												<div class="console-content">
 													<div style="height:205px;overflow:auto;border-bottom:3px solid #666;margin-bottom:5px;" class="console-list">
-													<div style="clear:both;">...</div>
+													<div style="clear:both;"></div>
 													</div>
 													<div style="clear:both;"><div style="float:left;"><input id="input"></div><div style="display:inline-block;float:right;margin-right:10px;" class="console-total">-EUR 0.00</div>
 												</div>
@@ -68,19 +68,23 @@
 							<h4 class="mb16 uppercase">DEPOSIT :: HOW MUCH?</h4>
 							
 							
-								<a class="btn btn-sm btn-filled" onClick="AddToInput('7','input_deposit')">7</a>
-								<a class="btn btn-sm btn-filled" onClick="AddToInput('8','input_deposit')">8</a>
-								<a class="btn btn-sm btn-filled" onClick="AddToInput('9','input_deposit')">9</a><br>
-								<a class="btn btn-sm btn-filled" onClick="AddToInput('4','input_deposit')">4</a>
-								<a class="btn btn-sm btn-filled" onClick="AddToInput('5','input_deposit')">5</a>
-								<a class="btn btn-sm btn-filled" onClick="AddToInput('6','input_deposit')">6</a><br>
-								<a class="btn btn-sm btn-filled" onClick="AddToInput('1','input_deposit')">1</a>
-								<a class="btn btn-sm btn-filled" onClick="AddToInput('2','input_deposit')">2</a>
-								<a class="btn btn-sm btn-filled" onClick="AddToInput('3','input_deposit')">3</a><br>
-								<a class="btn btn-sm btn-filled" onClick="AddToInput('0','input_deposit')">0</a>
-								<a class="btn btn-sm btn-filled" onClick="AddToInput('.','input_deposit')">.</a>
-								<a class="btn btn-sm btn-filled" onClick="AddToInput('','input_deposit')"><-</a><br><br>
-									<input id="input_deposit"><a class="btn btn-lg btn-filled next-p btn-red" onClick="abort()">Abort</a><br><br>
+								<a class="btn btn-sm btn-filled" onClick="InputAdd('7','input_deposit')">7</a>
+								<a class="btn btn-sm btn-filled" onClick="InputAdd('8','input_deposit')">8</a>
+								<a class="btn btn-sm btn-filled" onClick="InputAdd('9','input_deposit')">9</a>
+								<a class="btn btn-lg btn-filled btn-green" onClick="InputChange('50','input_deposit')">50</a><br>
+								<a class="btn btn-sm btn-filled" onClick="InputAdd('4','input_deposit')">4</a>
+								<a class="btn btn-sm btn-filled" onClick="InputAdd('5','input_deposit')">5</a>
+								<a class="btn btn-sm btn-filled" onClick="InputAdd('6','input_deposit')">6</a>
+								<a class="btn btn-lg btn-filled btn-green" onClick="InputChange('20','input_deposit')">20</a><br>
+								<a class="btn btn-sm btn-filled" onClick="InputAdd('1','input_deposit')">1</a>
+								<a class="btn btn-sm btn-filled" onClick="InputAdd('2','input_deposit')">2</a>
+								<a class="btn btn-sm btn-filled" onClick="InputAdd('3','input_deposit')">3</a>
+								<a class="btn btn-lg btn-filled btn-green" onClick="InputChange('10','input_deposit')">10</a><br>
+								<a class="btn btn-sm btn-filled" onClick="InputAdd('0','input_deposit')">0</a>
+								<a class="btn btn-sm btn-filled" onClick="InputAdd('.','input_deposit')">.</a>
+								<a class="btn btn-sm btn-filled" onClick="InputAdd('','input_deposit')">&#8612;</a>
+								<a class="btn btn-lg btn-filled btn-green" onClick="InputChange('5','input_deposit')">5</a><br><br>
+									<input id="input_deposit"><br><br><a class="btn btn-lg btn-filled next-p btn-red" onClick="Abort()">Abort</a><br><br>
 						</div>
 						<div class="col-sm-6" style="margin-bottom:30px;">
 							<h4 class="mb16 uppercase deposit-accountlist-title"></h4>
@@ -98,7 +102,7 @@
 
 			
 			
-			<section class="bg-dark page_config">
+			<section class="bg-dark config">
 				<div class="row">
 						<div class="col-sm-12">
 							<h4 class="mb16 uppercase">config</h4>
@@ -106,52 +110,67 @@
 				</div>
 				<div class="row">
 						<div class="col-sm-12">
-							<a class="btn btn-lg btn-filled btn-grey" onClick="ViewSection('page_config_products')">PRODUCTS</a>
-							<a class="btn btn-lg btn-filled btn-grey" onClick="ViewSection('page_add_account')">ACCOUNTS</a>
+							<a class="btn btn-lg btn-filled btn-grey" onClick="ViewSection('config-products')">products</a>
+							<a class="btn btn-lg btn-filled btn-grey" onClick="ViewSection('config-accounts')">accounts</a>
+							
+							<a class="btn btn-lg btn-filled btn-grey" onClick="">optimize</a>
 							<a class="btn btn-lg btn-filled" onClick="Reload()">reload</a>
-							<a class="btn btn-lg btn-filled btn-red" onClick="abort()">abort</a>
+							<a class="btn btn-lg btn-filled btn-red" onClick="Abort()">Abort</a>
 						</div>
 				</div>
 			</section>
 			
-			<section class="bg-dark page_config_products">
+			<section class="bg-dark config-products">
 				<div class="container">
 					<div class="row">
-						<div class="col-sm-12">
+						<div class="col-sm-6">
 						<h4 class="mb16 uppercase">
-							Lets add or edit some products
+							Add or edit products
 						</h4>
-						<h4 class="mb16 uppercase config-products-title">PRODUCTS</h4>
-						<div class="config-products">Loading..</div>
+							<a class="btn btn-lg btn-filled btn-green" onClick="">Add product</a><br>
+					<a class="btn btn-lg btn-filled next-p btn-red" onClick="Abort()">Abort</a>
+						</div>
+						<div class="col-sm-6">
+						<h4 class="mb16 uppercase config-productlist-title">products</h4>
+						<div class="config-productlist">Loading..</div><br><br>
 						</div>
 					</div>
 				</div>
 			</section>
 			
-			<section class="bg-dark page_config_products_add">
+			<section class="bg-dark config-products-edit">
 				<div class="row">
 						<div class="col-sm-12">
-							<h4 class="mb16 uppercase">LETS ADD A PRODUCT</h4>
+							<h4 class="mb16 uppercase">general</h4>
 							<input id="input_product_name"> PRODUCT NAME<br><br>
-							<input id="input_product_barcode"> BARCODE<br><br>
 							<input id="input_product_type"> PRODUCT TYPE<br><br>
+							<h4 class="mb16 uppercase">barcodes</h4>
+							<input id="input_product_barcode"> BARCODE<br><br>
+							<input id="input_product_barcode"> BARCODE<br><br>
+							<a class="btn btn-lg btn-filled btn-green" onClick="ViewSection('config-products-edit-money')">next</a>
+					<a class="btn btn-lg btn-filled next-p btn-red" onClick="Abort()">Abort</a>
 						</div>
 				</div>
+			</section>
+			
+			<section class="bd-dark config-products-edit-money">
 				<div class="row">
 					<div class="col-sm-12">
-					<h4 class="mb16 uppercase">MONEY 8!!!!!888!!888!!!!8!!</h4>
+					<h4 class="mb16 uppercase">MONEY</h4>
 					<input id="input_price"> EUR DONATED TO THE SPACE<br><br>
 					<input id="input_donation1"> EUR DONATED TO <input id="input_deposit"> (OPTIONAL, FOR SPACESHOP)<br><br>
 					<input id="input_donation2"> EUR DONATED TO <input id="input_deposit"> (OPTIONAL, FOR SPACESHOP)<br><br>
+					<a class="btn btn-lg btn-filled btn-green" onClick="ConfigProductEdit(this.form)">submit</a>
+					<a class="btn btn-lg btn-filled next-p btn-red" onClick="Abort()">Abort</a>
 					</div>
 				</div>
 			</section>
 			
-			<section class="bg-dark page_add_account">
+			<section class="bg-dark config-accounts">
 				<div class="row">
 						<div class="col-sm-12">
 							<h4 class="mb16 uppercase">what's the name of the new account?</h4>
-							<input id="input_account_name"><a class="btn btn-lg btn-filled btn-green" onClick="">ready</a><a class="btn btn-lg btn-filled btn-red" onClick="abort()">abort</a>
+							<input id="input_account_name"><a class="btn btn-lg btn-filled btn-green" onClick="">ready</a><a class="btn btn-lg btn-filled btn-red" onClick="Abort()">Abort</a>
 						</div>
 				</div>
 				<div class="row">
@@ -162,12 +181,16 @@
 		</div>
 			
 <script>
+// 
+// 	----------------------------
+//  COMMENTED OUT
+//  ----------------------------
+// 
 	
-	// http://api.icndb.com/jokes/random?limitTo=[nerdy]&firstName=John&lastName=Doe
+	
+	
+// http://api.icndb.com/jokes/random?limitTo=[nerdy]&firstName=John&lastName=Doe
 
-// define the html section that we are viewing
-ViewSection('page_start');
-	
 /*	
 // always keep the input form in focus (in case barcode scanners can be used)
 function CronJob(){
@@ -182,21 +205,24 @@ $(document).keydown(function (e) {
        	//code
 			 	e.keyCode = '';
 				$(function(){
-					BarcodeToConsole();
+					ConsoleBarcode();
 				});
     }
 });*/
 
+// 
+// 	----------------------------
+//  INITIALIZE
+//  ----------------------------
+// 	
 	
-function BarcodeToConsole() {
-	$input = $('#input').val();
-	$('#input').val('');
-	$.ajax({
-		cache: false,data: {type:'add-barcode',barcode: $input},
-		dataType: 'json',type: 'GET',timeout: 20000,url: 'api/console.php'
-	});
-	ConsoleRead();
-}
+ViewSection('page_start');
+	
+// 
+// 	----------------------------
+//  GENERAL
+//  ----------------------------
+// 
 	
 function GitPush(){
 	$.ajax({
@@ -205,32 +231,25 @@ function GitPush(){
 	});
 }
 	
-function GitPull(){
+function Reload(){
+	ViewSection('none');
 	$.ajax({
 		cache: false,
 		dataType: 'json',type: 'GET',timeout: 20000,url: 'gitpull.php'
 	});
-}	
-	
-function Reload(){
-	ViewSection('none');
-	GitPull();
 	setTimeout(function(){
     location.reload();
 }, 7000);
 }
 	
 	
-function abort($type = ''){
+function Abort($type = ''){
 	if($type == 'empty'){
 		ConsoleAction('empty');
 	}
 	ViewSection('page_start');
 	$(function(){
-			$('#input').val('');
-	});
-	$(function(){
-			$('#input_deposit').val('');
+			$('input').val(''); // empty all inputboxes
 	});
 }
 	
@@ -245,12 +264,12 @@ function ViewSection($screen = 'page_start'){
 	if($screen == 'page_deposit'){
   GetAccountList(undefined,undefined,'deposit-accountlist','deposit');
 	}
-	if($screen == 'page_config_products'){
-  GetProductList(undefined,40,'config-products','edit');
+	if($screen == 'config-products'){
+  GetProductList(0,20,'config-productlist','config-product-edit');
 	}
 }
 
-function AddToInput($add = '',$input = ''){
+function InputAdd($add = '',$input = ''){
 	var text = $("#"+$input);
   text.val(text.val() + $add);  
 	if($add == ''){
@@ -259,6 +278,29 @@ function AddToInput($add = '',$input = ''){
 	document.getElementById($input).focus();
 }
 	
+	
+function InputChange($change = '',$input = ''){
+	var text = $("#"+$input);
+  text.val($change);
+	document.getElementById($input).focus();
+}
+	
+	
+// 
+// 	----------------------------
+//  INPUT
+//  ----------------------------
+// 
+	
+function ConsoleBarcode() {
+	$input = $('#input').val();
+	$('#input').val('');
+	$.ajax({
+		cache: false,data: {type:'add-barcode',barcode: $input},
+		dataType: 'json',type: 'GET',timeout: 20000,url: 'api/console.php'
+	});
+	ConsoleRead();
+}
 	
 function ConsoleAction($type = '',$product = 0,$account = 0,$amount = 0){
 	if($type == 'deposit'){
@@ -281,6 +323,25 @@ function ConsoleAction($type = '',$product = 0,$account = 0,$amount = 0){
 		}
 	});
 }
+	
+function ConfigProductEdit(form){
+	$.ajax({
+		cache: false,data: {type: 'write',},
+		dataType: 'json',type: 'GET',timeout: 20000,url: 'api/config-product.php'
+	})
+	.done(function(data) {
+		var consolelist = '';
+		$.each(data, function(index, e) {	
+		});
+	});
+}
+	
+	
+// 
+// 	----------------------------
+//  OUTPUT
+//  ----------------------------
+// 
 
 
 function GetProductList($page = 0,$quantity = 19,$div = "productlist",$action = "add") {
@@ -296,14 +357,16 @@ function GetProductList($page = 0,$quantity = 19,$div = "productlist",$action = 
 			}else if(index=='total'){
 				page_total = e;
 			}else{
-				html += '<a class="btn btn-lg btn-filled';
+					html += '<a class="btn btn-lg btn-filled';
 				if(e.product_type==3){
-				html += ' btn-green';
+					html += ' btn-green';
 				}else if(e.product_type==2){ 
-				html += ' btn-red';
+					html += ' btn-red';
 				}
 				if($action == "add"){
-				html += '" onClick="ConsoleAction(\'add\','+e.product_id+')">'+e.product_name+'</a>';
+					html += '" onClick="ConsoleAction(\'add\','+e.product_id+')">'+e.product_name+'</a>';
+				}else if ($action == "config-product-edit"){
+					html += '" onClick="ConfigProductRead('+e.product_id+')">'+e.product_name+'</a>';
 				}
 			}
 		});
@@ -365,8 +428,32 @@ function ConsoleRead(){
 		$( ".logscreen-content" ).html(loglist);
 	});
 }
-
 	
+function ConfigProductRead($id = 1){
+	ViewSection('config-products-edit');
+	$.ajax({
+		cache: false,data: {type: 'read',product: $id},
+		dataType: 'json',type: 'GET',timeout: 20000,url: 'api/config-product.php'
+	})
+	.done(function(data) {
+		var consolelist = '';
+		$.each(data, function(index, e) {	
+		});
+	});
+}
+
+// 
+// 	----------------------------
+//  CONFIG-PRODUCTS
+//  ----------------------------
+// 
+	
+	
+// 
+// 	----------------------------
+//  CONFIG-ACCOUNTS
+//  ----------------------------
+// 
 </script>	
 			
 			
