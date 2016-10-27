@@ -47,6 +47,7 @@ section{
   line-height:16px;
   overflow:hidden;
   white-space: nowrap;
+    color:#888;
 }
 
 
@@ -96,7 +97,7 @@ input{
   height:260px;
   font-size:20px;
   text-transform:uppercase;
-  
+  color:#888;
 }
 
 .console-content{
@@ -128,10 +129,7 @@ input{
   overflow:hidden;
 }
 
-.btn:hover{
-  cursor:crosshair;
-  border-color:#fff;
-}
+
 .btn-blue{
   background-color:#30548a;
   border-color:#30548a;
@@ -163,4 +161,9 @@ input{
 .btn-grey:hover{
   background-color:#444;
 }
-
+.btn:hover{
+  cursor:crosshair;
+  border-color:#fff;
+  background-color:#fff;
+  color:#000;
+}
