@@ -452,24 +452,12 @@
 					$.each(data, function(index, e) {
 						if (index == 'price') {
 							$(".console-total").html('EUR ' + e);
-							var consoletotal = 'EUR '+e
 						} else {
 							consolelist += '<div style="clear:both;"><div style="float:left;">' + e.amount + ' x ' + e.console_product + '</div><div style="display:inline-block;float:right;margin-right:10px;">EUR ' + e.price + '</div></div>';
 						}
 					})
 					$(".console-list").html(consolelist);
 				});
-			
-			$.ajax({
-					cache: false,
-					data: {
-						msg: consoletotal
-					},
-					dataType: 'json',
-					type: 'GET',
-					timeout: 20000,
-					url: 'terminalpush.php'
-				})
 			
 			$.ajax({
 					cache: false,
