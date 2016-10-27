@@ -25,7 +25,8 @@ function json_log($log){
   global $config;
   $sql = "INSERT INTO sb_logs (log_time,log_type,log_json,log_message) VALUES ('".$log['timestamp']."','".$log['type']."','".json_encode($log)."','".$log['human']."')";
   $result = $conn->query($sql);
-  if(!$config['demo']){
+  if($config['demo']){
+  s}else{
 
     $data = json_encode($log);
     $file = fopen('../'.$config['log_file'], "a");
