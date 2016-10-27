@@ -12,7 +12,7 @@ $start = $page * $quantity;
 $array = array();
 $count = 0;
 
-$sql = "SELECT * FROM sb_accounts WHERE account_id > ".$start." ORDER BY account_sort ASC LIMIT ".$quantity;
+$sql = "SELECT * FROM sb_accounts ORDER BY account_sort ASC LIMIT ".$start.",".$quantity;
 $result = $conn->query($sql);
   
   
