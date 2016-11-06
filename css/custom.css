@@ -67,10 +67,10 @@ section{
     outline: none;
 }
 
-input{
+input, select, option{
   background-color:#313131;
   font-family: monospace;
-  font-size:24px;
+  font-size:16px;
   height:40px;
   line-height:60px;
   padding:10px;
@@ -78,6 +78,10 @@ input{
   border:0px;
   overflow:hidden;
   width:280px; 
+}
+
+select{
+  font-size:16px;
 }
 
 .part-products, .part-accounts{

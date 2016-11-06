@@ -134,12 +134,15 @@
 		<section class="bg-dark config-products-edit">
 			<div class="row">
 				<div class="col-sm-12">
-					<h4 class="mb16 uppercase">general</h4>
+					<h4 class="mb16 uppercase">GENERAL</h4>
 					<input id="input_product_name"> PRODUCT NAME<br><br>
 					<input id="input_product_type"> PRODUCT TYPE<br><br>
-					<h4 class="mb16 uppercase">barcodes</h4>
-					<input id="input_product_barcode"> BARCODE<br><br>
-					<input id="input_product_barcode"> BARCODE<br><br>
+					 <select>
+						<option value="1">Beverage</option>
+						<option value="2">Alcoholic Beverage</option>
+						<option value="3">Food</option>
+						<option value="4">Others</option>
+					</select> 
 					<a class="btn btn-lg btn-filled btn-green" onClick="ViewSection('config-products-edit-money')">next</a>
 					<a class="btn btn-lg btn-filled next-p btn-red" onClick="Abort()">Abort</a>
 				</div>
@@ -152,8 +155,18 @@
 					<h4 class="mb16 uppercase">MONEY</h4>
 					<input id="input_price"> EUR DONATED TO THE SPACE<br><br>
 					<input id="input_donation1"> EUR DONATED TO <input id="input_deposit"> (OPTIONAL, FOR SPACESHOP)<br><br>
-					<input id="input_donation2"> EUR DONATED TO <input id="input_deposit"> (OPTIONAL, FOR SPACESHOP)<br><br>
 					<a class="btn btn-lg btn-filled btn-green" onClick="ConfigProductEdit(this.form)">submit</a>
+					<a class="btn btn-lg btn-filled next-p btn-red" onClick="Abort()">Abort</a>
+				</div>
+			</div>
+		</section>
+		
+		<section class="bg-dark config-products-edit-barcodes">
+			<div class="row">
+				<div class="col-sm-12">		
+					<h4 class="mb16 uppercase">BARCODES</h4>
+					<div id="config_product_barcode"></div><br><br>
+					<a class="btn btn-lg btn-filled btn-green" onClick="ViewSection('config-products-edit-money')">save</a>
 					<a class="btn btn-lg btn-filled next-p btn-red" onClick="Abort()">Abort</a>
 				</div>
 			</div>
@@ -162,7 +175,7 @@
 		<section class="bg-dark config-accounts">
 			<div class="row">
 				<div class="col-sm-12">
-					<h4 class="mb16 uppercase">what's the name of the new account?</h4>
+					<h4 class="mb16 uppercase">name of the new account?</h4>
 					<input id="input_account_name"><a class="btn btn-lg btn-filled btn-green" onClick="">ready</a><a class="btn btn-lg btn-filled btn-red" onClick="Abort()">Abort</a>
 				</div>
 			</div>
@@ -174,34 +187,7 @@
 	</div>
 
 	<script>
-		// 
-		// 	----------------------------
-		//  COMMENTED OUT
-		//  ----------------------------
-		// 
 
-
-
-		// http://api.icndb.com/jokes/random?limitTo=[nerdy]&firstName=John&lastName=Doe
-
-		/*	
-		// always keep the input form in focus (in case barcode scanners can be used)
-		function CronJob(){
-			if (!$("#input").is(':focus')){
-			document.getElementById("input").focus();
-			}
-		}
-		setInterval(CronJob,2000);
-			
-		$(document).keydown(function (e) {
-		    if ($("#input:focus") && (e.keyCode === 13)) {
-		       	//code
-					 	e.keyCode = '';
-						$(function(){
-							ConsoleBarcode();
-						});
-		    }
-		});*/
 
 		// 
 		// 	----------------------------
@@ -341,6 +327,7 @@
 		}
 
 		function ConfigProductEdit(form) {
+			alert('test');
 			$.ajax({
 					cache: false,
 					data: {
@@ -485,7 +472,7 @@
 					cache: false,
 					data: {
 						type: 'read',
-						product: $id
+						id: $id
 					},
 					dataType: 'json',
 					type: 'GET',
@@ -493,8 +480,26 @@
 					url: 'api/config-product.php'
 				})
 				.done(function(data) {
-					var consolelist = '';
-					$.each(data, function(index, e) {});
+					$.each(data, function(index, e) {
+						if (index == 'product') {
+						var text = $("#input_product_name");
+						text.val(e.product_name);
+						
+						var text = $("#input_product_type");
+						text.val(e.product_type);
+						}
+						
+						if (index=='barcode'){
+							var html = '';
+							$.each(e, function(indax, a) {
+								html += a.barcode_code;
+								html += '<br>';
+								$("#config_product_barcode").html(html);
+							});
+						}
+						
+						
+					});
 				});
 		}
 
