@@ -20,20 +20,11 @@
 	<div class="main-container">
 		<section class="bg-dark page_start">
 			<div class="container">
-				<div class="row">
-					<div class="col-sm-7 part-products">
-						<h4 class="mb16 uppercase productlist-title">PRODUCTS</h4>
-						<div class="productlist">Loading..
-						</div>
-					</div>
-					<div class="col-sm-5 part-accounts">
-						<h4 class="mb16 uppercase accountlist-title">ACCOUNTS</h4>
-						<div class="accountlist">Loading..
-						</div>
-					</div>
-				</div>
-				<div class="row">
+				
+				<div class="row" style="margin-bottom:15px;">
 					<div class="col-sm-7 part-tools">
+						
+					
 						<h4 class="mb16 uppercase">Log</h4>
 						<div class="logscreen">
 							<div class="logscreen-content" style=""></div>
@@ -56,6 +47,18 @@
 									<div style="display:inline-block;float:right;margin-right:10px;" class="console-total">-EUR 0.00</div>
 								</div>
 							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-7 part-products">
+						<h4 class="mb16 uppercase productlist-title">PRODUCTS</h4>
+						<div class="productlist">Loading..
+						</div>
+					</div>
+					<div class="col-sm-5 part-accounts">
+						<h4 class="mb16 uppercase accountlist-title">ACCOUNTS</h4>
+						<div class="accountlist">Loading..
 						</div>
 					</div>
 				</div>

@@ -68,7 +68,7 @@ section{
 }
 
 input, select, option{
-  background-color:#313131;
+  background-color:#313131;!important
   font-family: monospace;
   font-size:16px;
   height:40px;
@@ -80,8 +80,9 @@ input, select, option{
   width:280px; 
 }
 
-select{
-  font-size:16px;
+option, select{
+  color:#888;!important
+  
 }
 
 .part-products, .part-accounts{
@@ -122,6 +123,17 @@ select{
   min-width:130px;
   overflow:hidden;
 }
+.btn-sm {
+  height: 60px;
+  width: 60px;
+  line-height: 56px;
+  font-size:18px;
+  font-weight:bold;
+  max-width:60px;
+  min-width:60px;
+  overflow:hidden;
+}
+
 .btn-sm {
   height: 60px;
   width: 60px;
