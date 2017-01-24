@@ -109,8 +109,8 @@
 				<div class="col-sm-12">
 					<a class="btn btn-lg btn-filled btn-grey" onClick="ViewSection('config-products')">products</a>
 					<a class="btn btn-lg btn-filled btn-grey" onClick="ViewSection('config-accounts')">accounts</a>
-					<a class="btn btn-lg btn-filled btn-grey" onClick="">optimize</a>
-					<a class="btn btn-lg btn-filled" onClick="Reload()">reload</a>
+					<a class="btn btn-lg btn-filled btn-green" onClick="Optimize()">optimize</a>
+					<a class="btn btn-lg btn-filled btn-green" onClick="Reload()">reload</a>
 					<a class="btn btn-lg btn-filled btn-red" onClick="Abort()">Abort</a>
 				</div>
 			</div>
@@ -123,7 +123,7 @@
 						<h4 class="mb16 uppercase">
 							Add or edit products
 						</h4>
-						<a class="btn btn-lg btn-filled btn-green" onClick="">Add product</a><br>
+						<a class="btn btn-lg btn-filled btn-green" onClick="ViewSection('config-products-edit')">Add product</a><br>
 						<a class="btn btn-lg btn-filled next-p btn-red" onClick="Abort()">Abort</a>
 					</div>
 					<div class="col-sm-6">
@@ -139,13 +139,15 @@
 				<div class="col-sm-12">
 					<h4 class="mb16 uppercase">GENERAL</h4>
 					<input id="input_product_name"> PRODUCT NAME<br><br>
-					<input id="input_product_type"> PRODUCT TYPE<br><br>
-					 <select>
-						<option value="1">Beverage</option>
-						<option value="2">Alcoholic Beverage</option>
-						<option value="3">Food</option>
-						<option value="4">Others</option>
-					</select> 
+					
+					<input type="radio" name="type" value="1" class="radio-option">&nbsp;&nbsp;BEVERAGE<br>
+					<input type="radio" name="type" value="2" class="radio-option">&nbsp;&nbsp;ALCOHOLIC BEVERAGE<br>
+					<input type="radio" name="type" value="3" class="radio-option">&nbsp;&nbsp;FOOD<br>
+					<input type="radio" name="type" value="4" class="radio-option">&nbsp;&nbsp;OTHER<br>
+					
+					
+					
+					<br><br>
 					<a class="btn btn-lg btn-filled btn-green" onClick="ViewSection('config-products-edit-money')">next</a>
 					<a class="btn btn-lg btn-filled next-p btn-red" onClick="Abort()">Abort</a>
 				</div>
@@ -154,13 +156,27 @@
 
 		<section class="bd-dark config-products-edit-money">
 			<div class="row">
-				<div class="col-sm-12">
+				<div class="col-sm-6">
 					<h4 class="mb16 uppercase">MONEY</h4>
-					<input id="input_price"> EUR DONATED TO THE SPACE<br><br>
-					<input id="input_donation1"> EUR DONATED TO <input id="input_deposit"> (OPTIONAL, FOR SPACESHOP)<br><br>
-					<a class="btn btn-lg btn-filled btn-green" onClick="ConfigProductEdit(this.form)">submit</a>
+					<input id="input_price"> EUR FOR THE SPACE<br><br>
+					<a class="btn btn-lg btn-filled btn-green" onClick="ViewSection('config-products-edit-money-personal')">next</a>
 					<a class="btn btn-lg btn-filled next-p btn-red" onClick="Abort()">Abort</a>
 				</div>
+			</div>
+		</section>
+		
+		<section class="bd-dark config-products-edit-money-personal">
+			<div class="row">
+				<div class="col-sm-6">
+					<h4 class="mb16 uppercase">PERSONAL GAIN</h4>
+					<input id="input_donation"> EUR FOR <br><br><input id="input_donation_name"> (select account)<br><br>
+					<a class="btn btn-lg btn-filled btn-green" onClick="ConfigProductEdit(this.form)">save</a>
+					<a class="btn btn-lg btn-filled next-p btn-red" onClick="Abort()">Abort</a>
+				</div>
+				<div class="col-sm-6" style="margin-bottom:30px;">
+						<h4 class="mb16 uppercase product-accountlist-title"></h4>
+						<div class="product-accountlist">Loading..</div>
+					</div>
 			</div>
 		</section>
 		
@@ -168,8 +184,9 @@
 			<div class="row">
 				<div class="col-sm-12">		
 					<h4 class="mb16 uppercase">BARCODES</h4>
+					<input id="input_newbarcode"><a class="btn btn-lg btn-filled next-p btn-green" onClick="Abort()">add</a>
 					<div id="config_product_barcode"></div><br><br>
-					<a class="btn btn-lg btn-filled btn-green" onClick="ViewSection('config-products-edit-money')">save</a>
+					<a class="btn btn-lg btn-filled btn-green" onClick="ViewSection('config-products-edit-money')">next</a>
 					<a class="btn btn-lg btn-filled next-p btn-red" onClick="Abort()">Abort</a>
 				</div>
 			</div>
@@ -177,10 +194,11 @@
 
 		<section class="bg-dark config-accounts">
 			<div class="row">
-				<div class="col-sm-12">
+				<div class="col-sm-6">
 					<h4 class="mb16 uppercase">name of the new account?</h4>
 					<input id="input_account_name"><a class="btn btn-lg btn-filled btn-green" onClick="">ready</a><a class="btn btn-lg btn-filled btn-red" onClick="Abort()">Abort</a>
 				</div>
+				
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
@@ -255,6 +273,9 @@
 			if ($screen == 'config-products') {
 				GetProductList(0, 20, 'config-productlist', 'config-product-edit');
 			}
+			if ($screen == 'config-products-edit-money') {
+				GetAccountList(undefined, undefined, 'product-accountlist', 'product');
+			}
 		}
 
 		function InputAdd($add = '', $input = '') {
@@ -273,6 +294,20 @@
 			document.getElementById($input).focus();
 		}
 
+		function Optimize(){
+			ViewSection('none');
+			$.ajax({
+				cache: false,
+				dataType: 'json',
+				type: 'GET',
+				timeout: 20000,
+				url: 'api/optimize.php'
+			});
+			setTimeout(function() {
+				location.reload();
+			}, 7000);
+			
+		}
 
 		// 
 		// 	----------------------------
@@ -339,7 +374,7 @@
 					dataType: 'json',
 					type: 'GET',
 					timeout: 20000,
-					url: 'api/config-product.php'
+					url: 'api/config-product-new.php'
 				})
 				.done(function(data) {
 					var consolelist = '';
@@ -495,8 +530,9 @@
 						if (index=='barcode'){
 							var html = '';
 							$.each(e, function(indax, a) {
+								html += '<input id="input_barc" value="';
 								html += a.barcode_code;
-								html += '<br>';
+								html += '" disabled><a class="btn btn-lg btn-filled next-p btn-red" onClick="Abort()">remove</a><br>';
 								$("#config_product_barcode").html(html);
 							});
 						}

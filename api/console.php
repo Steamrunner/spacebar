@@ -125,6 +125,8 @@ if($_GET['type'] == 'buy' && is_numeric($_GET['account'])){
       foreach ($data['takefrom'] as $k => $v) {
       $sql = "UPDATE sb_accounts SET account_money = ".$v['account_money_after']." WHERE account_id = ".$v['account_id'];
       $result = $conn->query($sql);
+      $sql = "UPDATE sb_accounts SET account_amount = account_amount+1 WHERE account_id = ".$v['account_id'];
+      $result = $conn->query($sql);
       }
             
       // give money to the product owners

@@ -67,7 +67,7 @@ section{
     outline: none;
 }
 
-input, select, option{
+input{
   background-color:#313131;!important
   font-family: monospace;
   font-size:16px;
@@ -79,11 +79,38 @@ input, select, option{
   overflow:hidden;
   width:280px; 
 }
-
-option, select{
-  color:#888;!important
-  
+select, option {
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
 }
+select {
+  height: 50px;
+  width: 280px;
+  border-radius: 0;
+  border: none;
+  outline: none;
+  padding-left: 20px;
+  position: relative;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #EEE;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  cursor: pointer;
+}
+.select-option {
+  position: relative;
+  cursor: pointer;
+  height: 50px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  height:40px;
+}
+
 
 .part-products, .part-accounts{
   min-height:400px;
