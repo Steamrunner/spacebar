@@ -17,6 +17,11 @@ h4.mb16{
   color:#e5692c;
 }
 
+.time{
+  font-size:28px;
+  float:right;
+  width:100px;
+}
 .main-container{
   max-width:1000px;
   margin:auto auto;

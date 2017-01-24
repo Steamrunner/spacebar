@@ -35,7 +35,7 @@
 						</div>
 
 					</div>
-					<div class="col-sm-5">
+					<div class="col-sm-5"><div class='time' style="float:right;padding:5px;">00:00:00</div>
 						<h4 class="mb16 uppercase">Console</h4>
 						<div class="console">
 							<div class="console-content">
@@ -217,12 +217,30 @@
 		// 	
 
 		ViewSection('page_start');
-
+		startTime();
+		
 		// 
 		// 	----------------------------
 		//  GENERAL
 		//  ----------------------------
 		// 
+		
+		function startTime() {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+			
+    html = h + ":" + m + ":" + s;
+		$(".time").html(html);
+    var t = setTimeout(startTime, 500);
+		}
+		function checkTime(i) {
+				if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+				return i;
+		}
 
 		function GitPush() {
 			$.ajax({
