@@ -347,6 +347,9 @@
 			if ($screen == 'config-products-edit') {
 				GetAccountList(undefined, 2, 'product-accountlist', 'product');
 			}
+			if ($screen == 'stats'){
+				GetStats();
+			}
 		}
 
 		function InputAdd($add = '', $input = '') {
