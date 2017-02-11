@@ -11,7 +11,7 @@
 	<link href="css/custom.css" rel="stylesheet" type="text/css" media="all" />
 	<link href='http://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" type="text/css" />
-	<script src="http:////code.jquery.com/jquery-2.1.4.js" type="text/javascript"></script>
+	<script src="http://code.jquery.com/jquery-2.1.4.js" type="text/javascript"></script>
 	<script src="js/jquery-ui-1.11.4.custom/jquery-ui.js" type="text/javascript"></script>
 </head>
 
@@ -107,6 +107,8 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
+					
+					<a class="btn btn-lg btn-filled btn-grey" onClick="ViewSection('stats')">stats</a>
 					<a class="btn btn-lg btn-filled btn-grey" onClick="ViewSection('config-products')">products</a>
 					<a class="btn btn-lg btn-filled btn-grey" onClick="ViewSection('config-accounts')">accounts</a>
 					<a class="btn btn-lg btn-filled btn-green" onClick="Optimize()">optimize</a>
@@ -115,7 +117,38 @@
 				</div>
 			</div>
 		</section>
-
+		
+		<section class="bg-dark stats">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-5">
+						<h4 class="mb16 uppercase">
+							Accounts
+						</h4>
+						<div class='stats_accounts'>
+							
+						</div>
+					</div>
+					<div class="col-sm-2">
+					
+					</div>
+					<div class="col-sm-5">
+						<h4 class="mb16 uppercase">
+							Products
+						</h4>
+						<div class='stats_products'>
+							
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<a class="btn btn-lg btn-filled btn-red" onClick="Abort()">Abort</a>
+					</div>
+				</div>
+			</div>
+		</section>
+		
 		<section class="bg-dark config-products">
 			<div class="container">
 				<div class="row">
@@ -133,50 +166,49 @@
 				</div>
 			</div>
 		</section>
-
+		
+<form name="config-products-edit">		
 		<section class="bg-dark config-products-edit">
 			<div class="row">
 				<div class="col-sm-12">
 					<h4 class="mb16 uppercase">GENERAL</h4>
-					<input id="input_product_name"> PRODUCT NAME<br><br>
-					
-					<input type="radio" name="type" value="1" class="radio-option">&nbsp;&nbsp;BEVERAGE<br>
-					<input type="radio" name="type" value="2" class="radio-option">&nbsp;&nbsp;ALCOHOLIC BEVERAGE<br>
-					<input type="radio" name="type" value="3" class="radio-option">&nbsp;&nbsp;FOOD<br>
-					<input type="radio" name="type" value="4" class="radio-option">&nbsp;&nbsp;OTHER<br>
-					
-					
-					
-					<br><br>
-					<a class="btn btn-lg btn-filled btn-green" onClick="ViewSection('config-products-edit-money')">next</a>
+					<input name="product_id" value="XXXXXX" disabled> PRODUCT ID<br><br>
+					<input name="product_name"> PRODUCT NAME<br><br>
+					<input name="product_type" id="input_type"> TYPE<br><br>
+				
+					<a class="btn btn-lg btn-filled" onClick="InputChange('1','input_type')">BEVERAGE</a>
+					<a class="btn btn-lg btn-filled" onClick="InputChange('2','input_type')">ALCOHOL</a>
+					<a class="btn btn-lg btn-filled" onClick="InputChange('3','input_type')">FOOD</a>
+					<a class="btn btn-lg btn-filled" onClick="InputChange('4','input_type')">OTHER</a><br><br>
+				</div><div class="col-sm-12">
+					<input name="product-type" id="input_price"> MONEY FOR THE SPACE<br><br>	
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('1','input_price')">1</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('2','input_price')">2</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('3','input_price')">3</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('4','input_price')">4</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('5','input_price')">5</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('6','input_price')">6</a>
+				  	<a class="btn btn-sm btn-filled" onClick="InputAdd('7','input_price')">7</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('8','input_price')">8</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('9','input_price')">9</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('0','input_price')">0</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('.','input_price')">.</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('','input_price')">&#8612;</a><br><br>	
+				
+				
+				</div><div class="col-sm-12">
+				
+					<h4 class="mb16 uppercase">ACTIONS</h4>
+					<a class="btn btn-lg btn-filled btn-green" onClick="ConfigProductEdit()">save</a>
 					<a class="btn btn-lg btn-filled next-p btn-red" onClick="Abort()">Abort</a>
-				</div>
-			</div>
-		</section>
 
-		<section class="bd-dark config-products-edit-money">
-			<div class="row">
-				<div class="col-sm-6">
-					<h4 class="mb16 uppercase">MONEY</h4>
-					<input id="input_price"> EUR FOR THE SPACE<br><br>
-					<a class="btn btn-lg btn-filled btn-green" onClick="ViewSection('config-products-edit-money-personal')">next</a>
-					<a class="btn btn-lg btn-filled next-p btn-red" onClick="Abort()">Abort</a>
+				
+
+				
+				
+				
+					
 				</div>
-			</div>
-		</section>
-		
-		<section class="bd-dark config-products-edit-money-personal">
-			<div class="row">
-				<div class="col-sm-6">
-					<h4 class="mb16 uppercase">PERSONAL GAIN</h4>
-					<input id="input_donation"> EUR FOR <br><br><input id="input_donation_name"> (select account)<br><br>
-					<a class="btn btn-lg btn-filled btn-green" onClick="ConfigProductEdit(this.form)">save</a>
-					<a class="btn btn-lg btn-filled next-p btn-red" onClick="Abort()">Abort</a>
-				</div>
-				<div class="col-sm-6" style="margin-bottom:30px;">
-						<h4 class="mb16 uppercase product-accountlist-title"></h4>
-						<div class="product-accountlist">Loading..</div>
-					</div>
 			</div>
 		</section>
 		
@@ -188,10 +220,31 @@
 					<div id="config_product_barcode"></div><br><br>
 					<a class="btn btn-lg btn-filled btn-green" onClick="ViewSection('config-products-edit-money')">next</a>
 					<a class="btn btn-lg btn-filled next-p btn-red" onClick="Abort()">Abort</a>
+					
+					<h4 class="mb16 uppercase">extra donation</h4>
+					<input id="input_donation"> EUR FOR <br><br>
+								
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('1','input_price')">1</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('2','input_price')">2</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('3','input_price')">3</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('4','input_price')">4</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('5','input_price')">5</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('6','input_price')">6</a><br>
+				  	<a class="btn btn-sm btn-filled" onClick="InputAdd('7','input_price')">7</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('8','input_price')">8</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('9','input_price')">9</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('0','input_price')">0</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('.','input_price')">.</a>
+						<a class="btn btn-sm btn-filled" onClick="InputAdd('','input_price')">&#8612;</a><br><br>
+				
+				<input id="input_donation_name"> (select account)<br><br>
+					
+					<div class="product-accountlist">Loading..</div><br><br>
+					
 				</div>
 			</div>
 		</section>
-
+</form>
 		<section class="bg-dark config-accounts">
 			<div class="row">
 				<div class="col-sm-6">
@@ -291,8 +344,8 @@
 			if ($screen == 'config-products') {
 				GetProductList(0, 20, 'config-productlist', 'config-product-edit');
 			}
-			if ($screen == 'config-products-edit-money') {
-				GetAccountList(undefined, undefined, 'product-accountlist', 'product');
+			if ($screen == 'config-products-edit') {
+				GetAccountList(undefined, 2, 'product-accountlist', 'product');
 			}
 		}
 
@@ -383,11 +436,17 @@
 		}
 
 		function ConfigProductEdit(form) {
-			alert('test');
+			var product_id = document.forms["config-products-edit"]["product_id"].value;
+			var product_name = document.forms["config-products-edit"]["product_name"].value;
+			var product_type = document.forms["config-products-edit"]["product_type"].value;
+			var product_money = document.forms["config-products-edit"]["product_money"].value;
 			$.ajax({
 					cache: false,
 					data: {
-						type: 'write',
+						product_id: product_id,
+						product_name: product_name,
+						product_type: product_type,
+						product_money: product_money
 					},
 					dataType: 'json',
 					type: 'GET',
@@ -400,6 +459,49 @@
 				});
 		}
 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		// 
 		// 	----------------------------
@@ -572,6 +674,35 @@
 		//  CONFIG-ACCOUNTS
 		//  ----------------------------
 		//
+		GetStats();
+		function GetStats() {
+			$.ajax({
+						cache: false,
+						data: {
+							section: 'accounts'
+						},
+						dataType: 'html',
+						type: 'GET',
+						timeout: 20000,
+						url: 'api/stats.php'
+					})
+					.done(function(data) {
+						$(".stats_accounts").html(data);
+					});
+			$.ajax({
+						cache: false,
+						data: {
+							section: 'products'
+						},
+						dataType: 'html',
+						type: 'GET',
+						timeout: 20000,
+						url: 'api/stats.php'
+					})
+					.done(function(data) {
+						$(".stats_products").html(data);
+					});
+		}
 	</script>
 
 

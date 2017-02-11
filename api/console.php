@@ -106,6 +106,8 @@ if($_GET['type'] == 'buy' && is_numeric($_GET['account'])){
           while($row = $result->fetch_assoc()) { 
             $product['targets'][] = $row;
           }
+          $sql = "UPDATE sb_products SET product_amount = product_amount+1 WHERE product_id = ".$v['console_product'];
+          $result = $conn->query($sql);
       }
       $data['products_totalprice'] = $products_price;
       $data['products_amount'] = $count; // get total amount of products

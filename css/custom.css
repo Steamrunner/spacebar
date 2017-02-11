@@ -27,6 +27,11 @@ section{
   
 }
 
+table{
+  border-bottom:5px;
+  background-color:white;
+}
+
 .container{
   margin:0px;
   width:100%;
