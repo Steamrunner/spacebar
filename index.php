@@ -379,7 +379,7 @@
 			});
 			setTimeout(function() {
 				location.reload();
-			}, 7000);
+			}, 5000);
 			
 		}
 

@@ -7,10 +7,10 @@ $array = array();
 if ($_GET['section'] == 'accounts'){
   
 // fetch the logs from database
-$sql = "SELECT * FROM sb_accounts ORDER BY account_sort ASC LIMIT 12";
+$sql = "SELECT * FROM sb_accounts ORDER BY account_sort ASC LIMIT 20";
 $result = $conn->query($sql);
 
-$html = '<table style="width:100%"><tr>
+$html = '<table style="width:100%;background-color:#292929;"><tr>
     <th><b>#</b></th>
     <th><b>Name</b></th> 
     <th><b>Credit</b></th>
@@ -37,10 +37,10 @@ echo $html;
 if ($_GET['section'] == 'products'){
   
 // fetch the logs from database
-$sql = "SELECT * FROM sb_products ORDER BY product_sort ASC LIMIT 12";
+$sql = "SELECT * FROM sb_products ORDER BY product_sort ASC LIMIT 20";
 $result = $conn->query($sql);
 
-$html = '<table style="width:100%"><tr>
+$html = '<table style="width:100%;background-color:#292929;"><tr>
     <th><b>#</b></th>
     <th><b>Name</b></th> 
     <th><b>Price</b></th>

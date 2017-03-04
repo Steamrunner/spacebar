@@ -17,3 +17,14 @@ $result = $conn->query($sql);
       			$parse = $conn->query($query);
 					$sort++;
 					}
+
+
+$sort=0;
+
+$sql = "SELECT product_id,product_amount,product_sort FROM sb_products ORDER BY product_amount DESC";
+$result = $conn->query($sql);
+          while($row = $result->fetch_assoc()) { 
+						$query = "UPDATE sb_products SET product_sort = ".$sort." WHERE product_id = ".$row['product_id'];
+      			$parse = $conn->query($query);
+					$sort++;
+					}
