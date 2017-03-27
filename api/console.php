@@ -59,7 +59,6 @@ if($_GET['type'] == 'add-barcode' && isset($_GET['barcode'])){
 }
 
 
-
 // finally, the buy code, handle with care!
 if($_GET['type'] == 'buy' && is_numeric($_GET['account'])){
   
@@ -104,7 +103,7 @@ if($_GET['type'] == 'buy' && is_numeric($_GET['account'])){
           $sql = "SELECT target_account,target_amount FROM sb_products_targets WHERE target_product = ".$v['console_product'];
           $result = $conn->query($sql);
           while($row = $result->fetch_assoc()) { 
-            $product['targets'][] = $row;
+            $targets[] = $row;
           }
           $sql = "UPDATE sb_products SET product_amount = product_amount+1 WHERE product_id = ".$v['console_product'];
           $result = $conn->query($sql);
@@ -132,10 +131,11 @@ if($_GET['type'] == 'buy' && is_numeric($_GET['account'])){
       $sql = "UPDATE sb_accounts SET account_amount_money = account_amount_money-".$account['account_money_take']." WHERE account_id = ".$v['account_id'];
       $result = $conn->query($sql);
       }
-            
+           
       // give money to the product owners
-      if(isset($product['targets'])){
-      foreach ($product['targets'] as $k => $v) {
+      if(isset($targets)){
+        
+      foreach ($targets as $k => $v) {
           $sql = "SELECT account_id,account_name,account_money FROM sb_accounts WHERE account_id = ".$v['target_account']." LIMIT 1";
           $result = $conn->query($sql);
           while($target = $result->fetch_assoc()) { 
@@ -155,7 +155,7 @@ if($_GET['type'] == 'buy' && is_numeric($_GET['account'])){
       $result = $conn->query($sql);
 
       // make a human readable string (single accounts only)
-      $human = $account['account_name']."";
+      $human = $account['account_name'].$db."";
       if($data['products_amount']>=2){
       $human .= " bought ".$count." products (".makedecimal($data['products_totalprice']).") and";
       }elseif($data['products_amount']==1){
