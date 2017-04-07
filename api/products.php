@@ -11,7 +11,7 @@ $start = $page * $quantity;
 $array = array();
 $count = 0;
 
-$sql = "SELECT * FROM sb_products WHERE product_id > ".$start." ORDER BY product_sort ASC LIMIT ".$quantity;
+$sql = "SELECT * FROM sb_products WHERE product_id > ".$start." and product_type != 0 ORDER BY product_sort ASC LIMIT ".$quantity;
 $result = $conn->query($sql);
   
   
