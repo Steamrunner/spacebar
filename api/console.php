@@ -121,6 +121,7 @@ if($_GET['type'] == 'buy' && is_numeric($_GET['account'])){
       $account['account_money_take'] = $data['products_totalprice'];
       $account['account_money_after'] = $account['account_money']+$data['products_totalprice'];
       $data['takefrom'][] = $account;
+       
 
       // take money from accounts (multi-account supported)
       foreach ($data['takefrom'] as $k => $v) {
@@ -231,3 +232,6 @@ if($_GET['type'] == 'read'){
 
 echo json_encode($output);
 
+if (isset($account['account_money_after']) && $account['account_money_after'] < 0){
+    $t = exec('shame on you');
+  }
