@@ -168,6 +168,7 @@ if($_GET['type'] == 'buy' && is_numeric($_GET['account'])){
       json_log($data);
         
       }
+  
 }
 
 if($_GET['type'] == 'check'){
@@ -229,4 +230,9 @@ if($_GET['type'] == 'read'){
 
 
 echo json_encode($output);
+
+if (isset($v['account_money_after']) and $v['account_money_after'] < 0){
+  shell_exec(mpg123 ../shame.mp3);
+}
+}
 
