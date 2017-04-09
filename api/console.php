@@ -233,5 +233,5 @@ if($_GET['type'] == 'read'){
 echo json_encode($output);
 
 if (isset($account['account_money_after']) && $account['account_money_after'] < 0){
-    $t = exec('shame on you');
+    $t = exec('espeak "shame on you"');
   }
