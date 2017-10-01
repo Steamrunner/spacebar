@@ -156,7 +156,7 @@ if($_GET['type'] == 'buy' && is_numeric($_GET['account'])){
       $result = $conn->query($sql);
 
       // make a human readable string (single accounts only)
-      $human = $account['account_name'].$db."";
+      $human = $account['account_name'];
       if($data['products_amount']>=2){
       $human .= " bought ".$count." products (".makedecimal($data['products_totalprice']).") and";
       }elseif($data['products_amount']==1){

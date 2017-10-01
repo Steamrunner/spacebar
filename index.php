@@ -314,6 +314,7 @@
 				timeout: 20000,
 				url: 'gitpull.php'
 			});
+			GitPush;
 			setTimeout(function() {
 				location.reload();
 			}, 7000);
@@ -429,6 +430,9 @@
 				})
 				.fail(function() {
 					ConsoleRead();
+					if ($type == 'deposit' || $type == 'buy') {
+						GitPush();
+					}
 				})
 				.done(function(data) {
 					ConsoleRead();
