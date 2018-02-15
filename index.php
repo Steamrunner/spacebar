@@ -15,10 +15,10 @@
 	<script src="js/jquery-ui-1.11.4.custom/jquery-ui.js" type="text/javascript"></script>
 </head>
 
-<body class="scroll-assist" style="background-color:#efefef;">
+<body class="scroll-assist">
 
-	<div class="main-container" style="background-color:#efefef;">
-		<section class="bg-dark page_start"  style="background-color:#efefef;">
+	<div class="main-container">
+		<section class="bg-dark page_start">
 			<div class="container">
 				
 				<div class="row" style="margin-bottom:15px;">
