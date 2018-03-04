@@ -13,6 +13,8 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" type="text/css" />
 	<script src="http://code.jquery.com/jquery-2.1.4.js" type="text/javascript"></script>
 	<script src="js/jquery-ui-1.11.4.custom/jquery-ui.js" type="text/javascript"></script>
+	<script src="js/nano.js" type="text/javascript"></script>
+	<script src="js/kjua-0.1.1.min.js" type="text/javascript"></script>
 </head>
 
 <body class="scroll-assist">
@@ -39,15 +41,19 @@
 						<h4 class="mb16 uppercase">Console</h4>
 						<div class="console">
 							<div class="console-content">
-								<div style="height:205px;overflow:auto;border-bottom:3px solid #666;margin-bottom:5px;" class="console-list">
+								<div style="height:95px;overflow:auto;border-bottom:3px solid #666;margin-bottom:5px;" class="console-list">
 									<div style="clear:both;"></div>
 								</div>
 								<div style="clear:both;">
 									<div style="float:left;"><input id="input"></div>
-									<div style="display:inline-block;float:right;margin-right:10px;" class="console-total">-EUR 0.00</div>
+									<div style="display:inline-block;float:right;margin-right:10px;" class="console-total">EUR 0.00</div>
 								</div>
 							</div>
 						</div>
+						<h4 class="mb16 uppercase">Pay</h4>
+						<div class="tools">
+                                                        <a class="btn btn-lg btn-filled" onClick="Abort('empty')">Cash</a><a class="btn btn-lg btn-filled" onClick="ViewSection('page_start', true)">Nano</a>
+                                                </div>
 					</div>
 				</div>
 				<div class="row">
@@ -331,12 +337,16 @@
 			});
 		}
 
-		function ViewSection($screen = 'page_start') {
+		function ViewSection($screen = 'page_start', $qr = false) {
 			$("section").hide();
 			$("." + $screen).show();
 			if ($screen == 'page_start') {
 				GetProductList(undefined, undefined, 'productlist', 'add');
-				GetAccountList(undefined, undefined, 'accountlist', 'buy');
+				if ($qr == false) {
+					GetAccountList(undefined, undefined, 'accountlist', 'buy');
+				} else {
+					GetQR('accountlist');
+				}
 				ConsoleRead();
 			}
 			if ($screen == 'page_deposit') {
@@ -585,6 +595,42 @@
 					$("." + $div).html(html);
 					$("." + $div + "-title").html("Accounts " + ($page + 1) + "/" + page_total);
 				});
+		}
+
+		function GetQR($div = "accountlist") {
+
+			console.log("GetQR");
+
+			var price = 0;
+
+			payment = startPayment(2500, "NANO");
+			console.log("url: " + payment["nanoUrl"]);
+
+			var html = '<div class="qrbox">';
+			html += '<div class="qr" id="qrcodeCanvas"></div><p id="amounts"><p><a class="btn btn-lg btn-filled btn-red btn-bottom-right" onClick="Abort(\'empty\')">Abort</a></div>';
+			$("." + $div).html(html);
+			$("." + $div + "-title").html("Scan the QR code" );
+
+			$('#amounts').text(payment["amount"] + ' NANO');
+
+			var qr = kjua({
+				width: 128,
+				height: 128,
+				ecLevel: 'H',
+				rounded: 70,
+                        	text: payment["nanoUrl"]
+			});
+			$('#qrcodeCanvas').append(qr);
+
+			state = updatePaymentStatus(payment["paymentId"]);
+			state =	waitForStateChange(payment["paymentId"], state);
+			console.log("state: " + state + " " + payment["paymentId"]);
+
+			if ((state == "PENDING") || (state == "PAID")) {
+				console.log("OK");
+			} else {
+				console.log("NOT OK");
+			}
 		}
 
 		function ConsoleRead() {
