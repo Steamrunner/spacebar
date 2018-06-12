@@ -52,7 +52,7 @@
 						</div>
 						<h4 class="mb16 uppercase">Pay</h4>
 						<div class="tools">
-                                                        <a class="btn btn-lg btn-filled" onClick="Abort('empty')">Cash</a><a class="btn btn-lg btn-filled" onClick="ViewSection('page_start', true)">Nano</a>
+                                                        <a class="btn btn-lg btn-filled" onClick="ConsoleAction('buy',undefined,48)">Cash</a><a class="btn btn-lg btn-filled" onClick="ViewSection('page_start', true)">Nano</a>
                                                 </div>
 					</div>
 				</div>
@@ -395,7 +395,7 @@
 		}
 
 		// 
-		// 	----------------------------
+		//  ----------------------------
 		//  INPUT
 		//  ----------------------------
 		// 
