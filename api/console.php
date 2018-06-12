@@ -166,7 +166,9 @@ if($_GET['type'] == 'buy' && is_numeric($_GET['account'])){
       $data['human'] = $human;
 
       // aaaaaaaaand log the data
+
       json_log($data);
+
         
       }
   
@@ -207,14 +209,25 @@ if($_GET['type'] == 'deposit' && is_numeric($_GET['account']) && is_numeric($_GE
 if($_GET['type'] == 'read'){
   
   //dirty code to read the console content, needs cleaning up
-  $sql = "SELECT *, COUNT(console_product) as 'amount' FROM sb_console GROUP BY console_product ORDER BY console_id DESC";
+
+  // bad bloomie!
+  //$sql = "SELECT *, COUNT(console_product) as 'amount' FROM sb_console GROUP BY console_product ORDER BY console_id DESC";
+
+  $sql = "SELECT console_product, COUNT(console_product) as 'amount' FROM sb_console GROUP BY console_product";
+
   $result = $conn->query($sql);
+  if (!$result) {
+      throw new Exception(mysqli_error($conn));
+  }
   $count = 0;
   $price = 0.00;
   while($row = $result->fetch_assoc()) {
         $output[$count]['amount'] = $row['amount'];
         $sql2 = "SELECT * FROM sb_products WHERE product_id = ".$row['console_product'];
         $result2 = $conn->query($sql2);
+        if (!$result2) {
+            throw new Exception(mysqli_error($conn));
+        }
         while($row2 = $result2->fetch_assoc()) { 
           $output[$count]['console_product'] = $row2['product_name'];
           $product_price = ($row2['product_price']*$row['amount']);
